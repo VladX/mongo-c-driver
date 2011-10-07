@@ -60,7 +60,7 @@ static int mongo_create_socket( mongo *conn ) {
 
     return MONGO_OK;
 }
-
+#if 0
 static int mongo_set_blocking_status( mongo *conn ) {
     int flags;
     int blocking;
@@ -86,7 +86,7 @@ static int mongo_set_blocking_status( mongo *conn ) {
 
     return MONGO_OK;
 }
-
+#endif
 int mongo_set_socket_op_timeout( mongo *conn, int millis ) {
     struct timeval tv;
     tv.tv_sec = millis / 1000;
@@ -124,7 +124,7 @@ int mongo_socket_connect( mongo *conn, const char *host, int port ) {
     if( mongo_create_socket( conn ) != MONGO_OK )
         return MONGO_ERROR;
 
-    if( getaddrinfo( host, port_str, &hints, &addrs ) != 0 ) {
+    if( (ret = getaddrinfo( host, port_str, &hints, &addrs )) != 0 ) {
         bson_errprintf( "getaddrinfo failed: %s", gai_strerror( ret ) );
         conn->err = MONGO_CONN_ADDR_FAIL;
         return MONGO_ERROR;
@@ -134,7 +134,7 @@ int mongo_socket_connect( mongo *conn, const char *host, int port ) {
         mongo_close_socket( conn->sock );
         freeaddrinfo( addrs );
         conn->err = MONGO_CONN_FAIL;
-        return MONGO_ERROR:
+        return MONGO_ERROR;
     }
 
     setsockopt( conn->sock, IPPROTO_TCP, TCP_NODELAY, ( char * )&flag, sizeof( flag ) );

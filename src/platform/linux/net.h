@@ -32,6 +32,7 @@
 #include <netinet/in.h>
 #include <netinet/tcp.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <errno.h>
 #define mongo_close_socket(sock) ( close(sock) )
 
