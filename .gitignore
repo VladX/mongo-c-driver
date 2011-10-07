@@ -19,6 +19,12 @@ tags
 
 config.log
 
+Makefile
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+CMakeFiles
+
 docs/html
 docs/source/sphinx/build
 docs/source/doxygen
