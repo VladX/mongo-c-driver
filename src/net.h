@@ -21,9 +21,10 @@
 
 #include "mongo.h"
 
-#ifdef _WIN32
-#include <windows.h>
-#include <winsock.h>
+#ifdef _MONGO_WIN
+#define WINVER 0x0501
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #define mongo_close_socket(sock) ( closesocket(sock) )
 typedef int socklen_t;
 #else
@@ -37,7 +38,7 @@ typedef int socklen_t;
 #define mongo_close_socket(sock) ( close(sock) )
 #endif
 
-#ifndef _WIN32
+#ifndef _MONGO_WIN
 #include <unistd.h>
 #endif
 
